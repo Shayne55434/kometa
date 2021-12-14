@@ -1,0 +1,11 @@
+Docker:
+preface all following commands with "sudo docker exec -it pmm "
+
+python plex_meta_manager.py --library "4K Movies" --collections "4K Overlay"
+python plex_meta_manager.py --library "4K Movies" --collections "MCU"
+python plex_meta_manager.py --library "4K Movies" --collections-only --no-missing
+python plex_meta_manager.py --library "4K Movies" --collections "The Fast and the Furious"
+
+python plex_meta_manager.py --library "Movies" --collections "Top 10 Pirated Films"
+
+sudo docker exec -it pmm python plex_meta_manager.py --library "4K Movies" --collections "MCU"
