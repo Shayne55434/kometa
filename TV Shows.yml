@@ -119,6 +119,10 @@ collections:
     tmdb_show: 33880
     item_assets: true
     build_collection: false
+  Letterkenny:
+    tmdb_show: 65798
+    item_assets: true
+    build_collection: false
   Loki:
     tmdb_show: 84958
     item_assets: true
@@ -197,6 +201,10 @@ collections:
     build_collection: false
   The West Wing:
     tmdb_show: 688
+    item_assets: true
+    build_collection: false
+  The Witcher:
+    tmdb_show: 71912
     item_assets: true
     build_collection: false
   Yellowstone:

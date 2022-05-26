@@ -180,6 +180,8 @@ collections:
       url: https://www.imdb.com/list/ls000096828/
       limit: 100
     summary: Top 100 Christmas movies, accoring to https://www.imdb.com/list/ls000096828/.
+    visible_home: range(12/01-12/31)
+    visible_shared: range(12/01-12/31)
     #schedule: monthly(1)
   Top Horror Movies:
     template: {name: Chart Alpha, num: 7}
@@ -188,6 +190,8 @@ collections:
     summary: Top horror movies, accoring to https://trakt.tv/users/w1nt3r/lists/time-out-s-100-best-horror-films?sort=rank,asc.
     radarr_add: true
     radarr_search: true
+    visible_home: range(10/01-10/31)
+    visible_shared: range(10/01-10/31)
     #schedule: monthly(1)
   Best of 1980s:
     template: {name: Chart Alpha, num: 8}
@@ -345,6 +349,8 @@ collections:
     #schedule: monthly(1)
   Deadpool:
     template: {name: Collection, collection: 448150, movie: 567604}
+    visible_home: yearly(02/14)
+    visible_shared: yearly(02/14)
     #schedule: monthly(1)
   Death Race:
     template: {name: Collection, collection: 86116}
@@ -432,6 +438,8 @@ collections:
     #schedule: monthly(1)
   Halloween:
     template: {name: Collection, collection: "91361, 126209"}
+    visible_home: range(10/01-10/31)
+    visible_shared: range(10/01-10/31)
     #schedule: monthly(1)
   Halloweentown:
     template: {name: Collection, collection: 87252}

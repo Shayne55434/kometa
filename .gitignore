@@ -2,3 +2,5 @@ config.yml
 logs/*
 config.cache
 commands.txt
+overlays/*
+!overlays/*/overlay.png
