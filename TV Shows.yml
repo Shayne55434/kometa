@@ -10,16 +10,10 @@ templates:
     sync_mode: sync
 
 collections:
-#  4K Overlay:
-#    plex_search:
-#      all:
-#        resolution: 4K
-#    item_overlay: 4K-Mini
-#    item_assets: true
-#    build_collection: false
 ######################################################
 #                       Charts                       #
 ######################################################
+
   Plex Popular:
     template: { name: Chart, num: 1 }
     tautulli_popular:
@@ -59,6 +53,7 @@ collections:
 ######################################################
 #                     TV Series                      #
 ######################################################
+
   24:
     tmdb_show: 1973
     item_assets: true
@@ -215,6 +210,7 @@ collections:
 ######################################################
 #                Network Collections                 #
 ######################################################
+
   A&E:
     template: { name: network, network: "129, 2639, 3688" }
   ABC:
