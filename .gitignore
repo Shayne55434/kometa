@@ -5,4 +5,4 @@ config.cache
 UUID
 commands.txt
 overlays/*
-!overlays/*/overlay.png
+!overlays/*.png
