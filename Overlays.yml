@@ -31,20 +31,28 @@ templates:
       HDR: true
     allowed_library_types: <<4K>>, <<HDR>>
 
+  4K_banner:
+    default:
+      4K_banner: false
+    allowed_library_types: <<4K_banner>>
+
   4K:
     default:
-      4K: true
+      4K: false
     allowed_library_types: <<4K>>
 
 overlays:
   4K_banner:
+    template:
+      name: 4K_banner
     overlay:
       name: 4K_banner
     plex_search:
-      type: movies
       all:
         resolution.regex: '(?i)2160|4K'
   4K:
+    template:
+      name: 4K
     overlay:
       name: 4K
       horizontal_offset: 15
