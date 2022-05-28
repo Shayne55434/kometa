@@ -202,20 +202,27 @@ collections:
     trakt_list: https://trakt.tv/users/sp1ti/lists/a-v-club-s-best-films-of-the-00s?sort=rank,asc
     summary: Best of the 2000s, according to https://trakt.tv/users/sp1ti/lists/a-v-club-s-best-films-of-the-00s?sort=rank,asc.
     #schedule: monthly(1)
-  Best of 2017:
-    template: {name: Best of, year: 2017}
+  Best of 2010s:
+    template: {name: Chart Alpha, num: 9.2}
+    trakt_list: https://trakt.tv/users/maxwelldeux/lists/a-v-club-s-the-best-movies-of-the-2010s?sort=rank,asc
+    summary: Best of the 2010s, according to https://trakt.tv/users/maxwelldeux/lists/a-v-club-s-the-best-movies-of-the-2010s?sort=rank,asc.
     #schedule: monthly(1)
-  Best of 2018:
-    template: {name: Best of, year: 2018}
-    #schedule: monthly(1)
-  Best of 2019:
-    template: {name: Best of, year: 2019}
-    #schedule: monthly(1)
+  # Best of 2017:
+  #   template: {name: Best of, year: 2017}
+  #   #schedule: monthly(1)
+  # Best of 2018:
+  #   template: {name: Best of, year: 2018}
+  #   #schedule: monthly(1)
+  # Best of 2019:
+  #   template: {name: Best of, year: 2019}
+  #   #schedule: monthly(1)
   Best of 2020:
     template: {name: Best of, year: 2020}
     #schedule: monthly(1)
   Best of 2021:
     template: {name: Best of, year: 2021}
+  Best of 2022:
+    template: {name: Best of, year: 2022}
   Oscars:
     template: {name: Chart Release}
     imdb_list: https://www.imdb.com/search/title/?title_type=feature,documentary&groups=oscar_winner

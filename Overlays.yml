@@ -18,24 +18,24 @@ templates:
       horizontal_align: <<horizontal_align>>
       vertical_offset: <<vertical_offset>>
       vertical_align: <<vertical_align>>
-
+  
   4K-DV:
     default:
       4K: true
       DV: true
     allowed_library_types: <<4K>>, <<DV>>
-
+  
   4K-HDR:
     default:
       4K: true
       HDR: true
     allowed_library_types: <<4K>>, <<HDR>>
-
+  
   4K_banner:
     default:
       4K_banner: false
     allowed_library_types: <<4K_banner>>
-
+  
   4K:
     default:
       4K: false
