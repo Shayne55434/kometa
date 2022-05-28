@@ -6,4 +6,3 @@ UUID
 commands.txt
 overlays/*
 !overlays/*.png
-assets.tar
