@@ -54,7 +54,7 @@ collections:
 #                     TV Series                      #
 ######################################################
 
-  24:
+  "24":
     tmdb_show: 1973
     item_assets: true
     build_collection: false

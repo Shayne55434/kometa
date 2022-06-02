@@ -331,7 +331,7 @@ collections:
     #schedule: monthly(1)
   Cloverfield:
     template: {name: Collection}
-    imdb_list: https://www.imdb.com/list/ls021933730/
+    imdb_list: https://www.imdb.com/list/ls023762626/
     summary: Cloverfield is an American science fiction anthology film series and media franchise created and produced by J. J. Abrams consisting of three films, viral marketing websites linking the films together, and a tie-in manga to the first film titled Cloverfield/Kishin (2008), all set in a shared fictional universe referred to as the "Cloververse". The franchise as a whole deals with creatures from other dimensions attacking Earth throughout various decades, all as a repercussion of an experiment by an astronaut team aboard the Cloverfield Station in outer-space. Each film depicts the reality-altering effects of their study, which was meant to find a new energy source replacing the planet's depleted resources, only to open portals for assault from various beasts from deep space.
     #schedule: monthly(1)
   Cornetto Trilogy:

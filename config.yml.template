@@ -2,6 +2,9 @@ libraries:                                      # Library mappings must have a c
   Movies:
     metadata_path:
       - file: config/Movies.yml
+    overlay_path:
+      - remove_overlays: false
+      - git: PMM/overlays/imdb_top_250
     settings:
       asset_directory: 
         - config/assets/movies
@@ -40,6 +43,7 @@ libraries:                                      # Library mappings must have a c
       - file: config/Movies.yml
     overlay_path:
       - remove_overlays: false
+      - git: PMM/overlays/imdb_top_250
       - file: config/Overlays.yml
         template_variables:
         # Which overlay(s) should be used?
@@ -52,9 +56,9 @@ libraries:                                      # Library mappings must have a c
       assets_for_all: true
     radarr:
       url: http://radarr4k:7878
-      token: daca91ec03844019adbb50c2d6362b70
+      token: <redacted>
       version: v3
-      root_folder_path: /mnt/unionfs/media/4kmovies
+      root_folder_path: /mnt/media/4kmovies
       monitor: true
       availability: released
       quality_profile: Ultra-HD
@@ -82,8 +86,8 @@ libraries:                                      # Library mappings must have a c
       assets_for_all: true
     sonarr:
       url: http://sonarr4k:8989
-      token: cf418b3f229c441ca6e727ecb5b3112d
-      root_folder_path: /mnt/unionfs/media/4ktvshows
+      token: <redacted>
+      root_folder_path: /mnt/media/4ktvshows
       monitor: all
       quality_profile: Ultra-HD
       language_profile: English
@@ -138,30 +142,30 @@ settings:                                       # Can be individually specified 
   playlist_sync_to_user: all
   playlist_report: false
 webhooks:                                       # Can be individually specified per library as well
-  error: 
+  error: https://discord.com/api/webhooks/<redacted>/<redacted>
   version:
   run_start:
-  run_end: 
+  run_end: https://discord.com/api/webhooks/<redacted>/<redacted>
   changes:
 plex:                                           # Can be individually specified per library as well
   url: http://plex:32400
-  token: <token>
+  token: <redacted>
   timeout: 60
   clean_bundles: false
   empty_trash: false
   optimize: false
 tmdb:
-  apikey: <token>
+  apikey: <redacted>
   language: en
   cache_expiration: 60
   region:
 tautulli:                                       # Can be individually specified per library as well
   url: http://tautulli:8181
-  apikey: <token>
+  apikey: <redacted>
 radarr:                                         # Can be individually specified per library as well
   url: http://radarr:7878
-  token: <token>
-  root_folder_path: /mnt/unionfs/media/movies
+  token: <redacted>
+  root_folder_path: /mnt/media/movies
   quality_profile: Any
   monitor: true
   availability: announced
@@ -174,8 +178,8 @@ radarr:                                         # Can be individually specified 
   plex_path:
 sonarr:                                         # Can be individually specified per library as well
   url: http://sonarr:8989
-  token: <token>
-  root_folder_path: /mnt/unionfs/media/tvshows
+  token: <redacted>
+  root_folder_path: /mnt/media/tvshows
   quality_profile: Any
   monitor: all
   language_profile: English
@@ -189,14 +193,17 @@ sonarr:                                         # Can be individually specified 
   tag:
   sonarr_path:
   plex_path:
+omdb:
+  apikey: <redacted>
+  cache_expiration: 60
 trakt:
-  client_id: 
-  client_secret: 
+  client_id: <redacted>
+  client_secret: <redacted>
   authorization:
-    access_token: 
-    token_type: 
-    expires_in: 
-    refresh_token: 
-    scope: public
+    access_token:
+    token_type:
+    expires_in:
+    refresh_token:
+    scope:
     created_at: 
   pin:
