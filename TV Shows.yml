@@ -113,7 +113,7 @@ collections:
     tmdb_show: 1447
     item_assets: true
     build_collection: false
-  Rick & Morty:
+  Rick and Morty:
     tmdb_show: 60625
     item_assets: true
     build_collection: false
@@ -159,6 +159,10 @@ collections:
     build_collection: false
   The West Wing:
     tmdb_show: 688
+    item_assets: true
+    build_collection: false
+  Willow:
+    tmdb_show: 111837
     item_assets: true
     build_collection: false
   The Witcher:
