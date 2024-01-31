@@ -6,3 +6,5 @@ UUID
 commands.txt
 overlays/*
 !overlays/*.png
+*Original Posters/*
+temp.jpg
