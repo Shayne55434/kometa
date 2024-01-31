@@ -1,3 +1,4 @@
+.gitignore
 config.yml
 logs/*
 .vscode/*
