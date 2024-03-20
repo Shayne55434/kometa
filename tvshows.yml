@@ -16,21 +16,13 @@ collections:
   Continue Watching:
     summary: Shows that have been played, but contain unwatched episodes.
     sort_title: "!000_Continue Watching"
-    plex_search:
+#     plex_search:
+    smart_filter:
       any:
         episode_progress: true
         all:
           unplayed_episodes: true
           plays.gt: 0
-#   Continue Watching2:
-#     summary: Shows that have been played, but contain unwatched episodes.
-#     sort_title: "!001_Continue Watching"
-#     smart_filter:
-#       any:
-#         episode_progress: true
-#         all:
-#           unplayed_episodes: true
-#           plays.gt: 0
 ######################################################
 #                       Charts                       #
 ######################################################
@@ -84,6 +76,10 @@ collections:
     build_collection: false
   Grey's Anatomy:
     tmdb_show: 1416
+    item_assets: true
+    build_collection: false
+  It's Always Sunny in Philadelphia:
+    tmdb_show: 2710
     item_assets: true
     build_collection: false
   The Mandalorian:

@@ -123,7 +123,7 @@ collections:
     template:
       name: collection
       value: 153010
-      movie: 321612 #Needs custom artwork
+      movie: 321612
 #   Charlie Brown:
 #     template:
 #       name: collection
@@ -186,7 +186,7 @@ collections:
   The Lion King:
     template:
       name: collection
-      value: "94032, 762512" #Will need custom artwork when latest film is released
+      value: "94032, 762512" #Will need custom artwork when latest film is released (December 18, 2024)
   Living Dead:
     template:
       name: collection
@@ -322,12 +322,10 @@ collections:
     summary: An anthology series of British comedic genre films directed by Edgar Wright, written by Wright and Simon Pegg, produced by Nira Park, and starring Pegg and Nick Frost. The trilogy consists of Shaun of the Dead (2004), Hot Fuzz (2007), and The World's End (2013).
   Hayao Miyazaki:
     imdb_list: https://www.imdb.com/list/ls069998735/
-  Laurel & Hardy:
-    imdb_list: https://www.imdb.com/list/ls005126419/ #Needs custom artwork
   MCU:
-    imdb_list: https://www.imdb.com/list/ls066946827/
+    imdb_list: https://www.imdb.com/list/ls031310794/
     item_assets: true
   MCU - Chronological:
-    imdb_list: https://www.imdb.com/list/ls021001839/
+    imdb_list: https://www.imdb.com/list/ls029032797/
     item_assets: true
     collection_order: custom

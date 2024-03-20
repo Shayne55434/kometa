@@ -1,10 +1,10 @@
-config.yml
-logs/*
+!overlays/*.png
 .vscode/*
-config.cache
 UUID
 commands.txt
+config.cache
+config.yml
+logs/*
 overlays/*
-!overlays/*.png
-*Original Posters/*
+reports/*
 temp.jpg
