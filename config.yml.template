@@ -1,474 +1,532 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Kometa-Team/Kometa/nightly/json-schema/config-schema.json
+
 libraries:
   4K Movies:
     report_path: /config/reports/4kmovies.yml
     settings:
       asset_directory:
-      - config/assets/movies
-      - config/assets/movie_collections
+        - config/assets/movies
+        - config/assets/movie_collections
     operations:
-      # mass_critic_rating_update: mdb_tomatoesaudience
       assets_for_all: true
       split_duplicates: true
       delete_collections:
         managed: false
         configured: false
         less: 3
-    template_variables: # Disable the separator for collections
+    template_variables:
+      # Disable the separator for collections - https://kometa.wiki/en/latest/defaults/separators/
       use_separator: false
-    # metadata_files:
     collection_files:
-    - file: config/movies.yml
-      schedule: weekly(sunday)
-    - pmm: basic # Recently released media
-    - pmm: content_rating_cs
-      template_variables:
-        item_label: kids
-        include:
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-    - pmm: decade   # "Best of" by decade
-      schedule: weekly(friday)
-      template_variables:
-        limit: 20
-        exclude:
-        - 1920
-        - 1930
-        - 1940
-        - 1950
-        - 1960
-    - pmm: emmy   # Emmy winners for the last 5 years
-      schedule: monthly(30)
-      template_variables:
-        radarr_add_missing: false
-        data:
-          starting: current_year-5
-          ending: current_year-1
-    - pmm: flixpatrol   # Top across networks, according to flixpatrol
-      schedule: weekly(tuesday)
-      template_variables:
-        radarr_add_missing: false
-        location: united_states
-    - pmm: imdb   #IMDb Top 250
-      schedule: monthly(1)
-      template_variables:
-        use_popular: false
-        use_lowest: false
-    - pmm: other_chart   #StevenLu's Popular and Top 10 Pirated
-      schedule: weekly(wednesday)
-      template_variables:
-        radarr_add_missing: false
-        use_anidb: false
-        use_commonsense: false
-    - pmm: oscars   # Oscar winners for the last 5 years
-      schedule: monthly(15)
-      template_variables:
-        radarr_add_missing: false
-        data:
-          starting: current_year-5
-          ending: current_year-1
-    - pmm: seasonal   # Create holiday collections that follow schedules
-      schedule: weekly(thursday)
-      template_variables:
-        limit: 100
-        use_easter: false
-        use_mother: false
-        use_memorial: false
-        use_father: false
-        use_labor: false
-        use_lgbtq: false
-        use_aapi: false
-        use_black_history: false
-        use_latinx: false
-        use_women: false
-    - pmm: tautulli   # Plex popular/most watched
-      schedule: weekly(monday)
-    - pmm: trakt   # Top 20 Popular, trending, and watched movies/shows
-      template_variables:
-        use_collected: false
-        use_recommended: false
-        limit: 20
+      # Custom collections - https://kometa.wiki/en/latest/files/collections/
+      - file: config/movies.yml
+        schedule: weekly(sunday)
+      # Recently released media - https://kometa.wiki/en/latest/defaults/chart/basic/
+      - default: basic
+      # Common Sense - https://kometa.wiki/en/latest/defaults/both/content_rating_cs/
+      - default: content_rating_cs
+        template_variables:
+          item_label: kids
+          include:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+      # "Best of" by decade - https://kometa.wiki/en/latest/defaults/movie/decade/
+      - default: decade
+        schedule: weekly(friday)
+        template_variables:
+          limit: 20
+          exclude:
+            - 1920
+            - 1930
+            - 1940
+            - 1950
+            - 1960
+      # Emmy winners for the last 5 years - https://kometa.wiki/en/latest/defaults/award/emmy/
+      - default: emmy
+        schedule: monthly(30)
+        template_variables:
+          data:
+            starting: current_year-5
+            ending: current_year-1
+      # IMDb Top 250 - https://kometa.wiki/en/latest/defaults/chart/imdb/
+      - default: imdb
+        schedule: monthly(1)
+        template_variables:
+          use_all: false
+          use_top: true
+      # StevenLu's Popular, Top 10 Pirated, and Common Sense - https://kometa.wiki/en/latest/defaults/chart/other/
+      - default: other_chart
+        schedule: weekly(wednesday)
+        template_variables:
+          use_all: false
+          use_stevenlu: true
+          use_commonsense: true
+          use_pirated: true
+      # Oscar winners for the last 5 years - https://kometa.wiki/en/latest/defaults/award/oscars/
+      - default: oscars
+        schedule: monthly(15)
+        template_variables:
+          use_best_picture: false
+          use_best_director: false
+          data:
+            starting: current_year-5
+            ending: current_year-1
+      # Create seasonal collections based on holidays - https://kometa.wiki/en/latest/defaults/movie/seasonal/
+      - default: seasonal
+        schedule: weekly(thursday)
+        template_variables:
+          limit: 100
+          use_all: false
+          use_years: true
+          use_valentine: true
+          use_patrick: true
+          use_easter: true
+          use_mother: true
+          use_independence: true
+          use_halloween: true
+          use_veteran: true
+          use_thanksgiving: true
+          use_christmas: true
+      # Plex popular/most watched - https://kometa.wiki/en/latest/defaults/chart/tautulli/
+      - default: tautulli
+        schedule: weekly(monday)
+        template_variables:
+          list_days: 7
+          summary_popular: "A collection of movies Popular on Plex for the last week."
+          summary_watched: "A collection of Top movies Watched on Plex for the last week."
+      # Top 20 Popular, trending, and watched movies/shows - https://kometa.wiki/en/latest/defaults/chart/trakt/
+      - default: trakt
+        template_variables:
+          limit: 20
+          use_all: false
+          use_popular: true
+          use_trending: true
+          use_watched: true
     overlay_files:
-    - reapply_overlays: false
-    - pmm: resolution   # Add a "4K Ultra HD" banner to poster
-      template_variables:
-        #file: config/overlays/<<key>>.png
-        use_edition: true
-        use_1080p_dv: false
-        use_1080p_hdr: false
-        use_1080p: false
-        use_720p: false
-        use_576p: false
-        use_480p: false
-    - pmm: ribbon
-      template_variables:
-        use_all: false
-        use_oscars: true
-        use_emmys: true
-        use_imdb: true
+      - reapply_overlays: false
+      # Add a 4K* + Edition to the top left - https://kometa.wiki/en/latest/defaults/overlays/resolution/
+      - default: resolution
+        template_variables:
+          use_all: false
+          use_edition: true
+          use_4k: true
+          use_4k_hdr: true
+          use_4k_dv: true
+          use_4k_plus: true
+          use_4k_dvhdr: true
+          use_4k_dvhdrplus: true
+      # Add a ribbon to the lower right if in IMDB 250, or is an Oscars or Emmy winner - https://kometa.wiki/en/latest/defaults/overlays/ribbon/
+      - default: ribbon
+        template_variables:
+          use_all: false
+          use_oscars: true
+          use_emmys: true
+          use_imdb: true
     radarr:
-      url: http://radarr4k:7878
+      url: 'http://radarr4k:7878'
       token: <redacted>
-      root_folder_path: /mnt/media/4kmovies
+      root_folder_path: /mnt/unionfs/media/4kmovies
       monitor: true
       availability: announced
       quality_profile: Ultra-HD
-      tag: pmm
+      tag: kometa
       search: false
       add_missing: false
       add_existing: false
       upgrade_existing: false
-      radarr_path:
-      plex_path:
+      radarr_path: null
+      plex_path: null
       ignore_cache: false
+      monitor_existing: false
   Movies:
     report_path: /config/reports/movies.yml
     settings:
       asset_directory:
-      - config/assets/movies
-      - config/assets/movie_collections
+        - config/assets/movies
+        - config/assets/movie_collections
     operations:
-      # mass_critic_rating_update: mdb_tomatoesaudience
       assets_for_all: true
       delete_collections:
         managed: false
         configured: false
         less: 3
-    template_variables: # Disable the separator for collections
+    template_variables:
+      # Disable the separator for collections - https://kometa.wiki/en/latest/defaults/separators/
       use_separator: false
-    # metadata_files:
     collection_files:
-    - file: config/movies.yml
-    - pmm: basic # Recently released media
-    - pmm: content_rating_cs
-      sort_by: title.asc
-      template_variables:
-        item_label: kids
-        include:
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-    - pmm: decade   # "Best of" by decade
-      template_variables:
-        limit: 20
-        #summary_format: "Top 20 movies of this year, sorted by critic rating."
-        exclude:
-        - 1920
-        - 1930
-        - 1940
-        - 1950
-        - 1960
-    - pmm: emmy   # Emmy winners for the last 5 years
-      schedule: monthly(30)
-      template_variables:
-        radarr_add_missing: false
-        data:
-          starting: current_year-5
-          ending: current_year-1
-    - pmm: flixpatrol   # Top across networks, according to flixpatrol
-      template_variables:
-        time_window: this_year
-        location: united_states
-        radarr_add_missing: false
-    - pmm: imdb   #IMDb Top 250
-      template_variables:
-        use_popular: false
-        use_lowest: false
-    - pmm: oscars   # Oscar winners for the last 5 years
-      template_variables:
-        radarr_add_missing: false
-        data:
-          starting: current_year-5
-          ending: current_year-1
-    - pmm: other_chart   #StevenLu's Popular and Top 10 Pirated
-      template_variables:
-        radarr_add_missing: false
-        use_anidb: false
-        use_commonsense: false
-    - pmm: seasonal   # Create holiday collections that follow schedules
-      template_variables:
-        limit: 100
-        use_easter: false
-        use_mother: false
-        use_memorial: false
-        use_father: false
-        use_labor: false
-        use_lgbtq: false
-        use_aapi: false
-        use_black_history: false
-        use_latinx: false
-        use_women: false
-    - pmm: tautulli   # Plex popular/most watched
-    - pmm: trakt   # Top 20 Popular, trending, and watched movies/shows
-      template_variables:
-        use_collected: false
-        use_recommended: false
-        limit: 20
+      # Custom collections - https://kometa.wiki/en/latest/files/collections/
+      - file: config/movies.yml
+      # Recently released media - https://kometa.wiki/en/latest/defaults/chart/basic/
+      - default: basic
+      # Common Sense - https://kometa.wiki/en/latest/defaults/both/content_rating_cs/
+      - default: content_rating_cs
+        template_variables:
+          sort_by: title.asc
+          item_label: kids
+          include:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+      # "Best of" by decade - https://kometa.wiki/en/latest/defaults/movie/decade/
+      - default: decade
+        template_variables:
+          limit: 20
+          exclude:
+            - 1920
+            - 1930
+            - 1940
+            - 1950
+            - 1960
+      # Emmy winners for the last 5 years - https://kometa.wiki/en/latest/defaults/award/emmy/
+      - default: emmy
+        schedule: monthly(30)
+        template_variables:
+          data:
+            starting: current_year-5
+            ending: current_year-1
+      # IMDb Top 250 - https://kometa.wiki/en/latest/defaults/chart/imdb/
+      - default: imdb
+        schedule: monthly(1)
+        template_variables:
+          use_all: false
+          use_top: true
+      # Oscar winners for the last 5 years - https://kometa.wiki/en/latest/defaults/award/oscars/
+      - default: oscars
+        template_variables:
+          use_best_picture: false
+          use_best_director: false
+          data:
+            starting: current_year-5
+            ending: current_year-1
+      # StevenLu's Popular, Top 10 Pirated, and Common Sense - https://kometa.wiki/en/latest/defaults/chart/other/
+      - default: other_chart
+        template_variables:
+          use_all: false
+          use_stevenlu: true
+          use_commonsense: true
+          use_pirated: true
+      # Create seasonal collections based on holidays - https://kometa.wiki/en/latest/defaults/movie/seasonal/
+      - default: seasonal
+        schedule: weekly(thursday)
+        template_variables:
+          limit: 100
+          use_all: false
+          use_years: true
+          use_valentine: true
+          use_patrick: true
+          use_easter: true
+          use_mother: true
+          use_independence: true
+          use_halloween: true
+          use_veteran: true
+          use_thanksgiving: true
+          use_christmas: true
+      # Plex popular/most watched - https://kometa.wiki/en/latest/defaults/chart/tautulli/
+      - default: tautulli
+        template_variables:
+          list_days: 7
+          summary_popular: "A collection of movies Popular on Plex for the last week."
+          summary_watched: "A collection of Top movies Watched on Plex for the last week."
+      # Top 20 Popular, trending, and watched movies/shows - https://kometa.wiki/en/latest/defaults/chart/trakt/
+      - default: trakt
+        template_variables:
+          limit: 20
+          use_all: false
+          use_popular: true
+          use_trending: true
+          use_watched: true
     overlay_files:
-    - pmm: ribbon
-      template_variables:
-        use_all: false
-        use_oscars: true
-        use_emmys: true
-        use_imdb: true
+      # Add a ribbon to the lower right if in IMDB 250, or is an Oscars or Emmy winner - https://kometa.wiki/en/latest/defaults/overlays/ribbon/
+      - default: ribbon
+        template_variables:
+          use_all: false
+          use_oscars: true
+          use_emmys: true
+          use_imdb: true
   4K TV Shows:
     report_path: /config/reports/4ktvshows.yml
     settings:
       asset_directory:
-      - config/assets/tvshows
-      - config/assets/tvshow_collections
+        - config/assets/tvshows
+        - config/assets/tvshow_collections
     operations:
-      # assets_for_all: true
-      # mass_critic_rating_update: tmdb
       delete_collections:
         managed: false
         configured: false
         less: 3
-    template_variables: # Disable the separator for collections
+    template_variables:
+      # Disable the separator for collections - https://kometa.wiki/en/latest/defaults/separators/
       use_separator: false
-    # metadata_files:
     collection_files:
-    - file: config/tvshows.yml
-    # Recently released media
-    - pmm: basic
-    # Plex popular/most watched
-    - pmm: tautulli
-    # Top across networks, according to flixpatrol
-    - pmm: flixpatrol
-      template_variables:
-        sonarr_add_missing: false
-        location: united_states
-    - pmm: imdb   #IMDb Top 250
-      template_variables:
-        sonarr_add_missing: false
-        use_popular: false
-        use_lowest: false
-    # Top 20 Popular, trending, and watched movies/shows
-    - pmm: trakt
-      template_variables:
-        use_collected: false
-        use_recommended: false
-        limit: 20
-    # Emmy winners for the last 5 years
-    - pmm: emmy
-      template_variables:
-        radarr_add_missing: false
-        data:
-          starting: current_year-5
-          ending: current_year-1
-    - pmm: show/decade   # "Best of" by decade
-      template_variables:
-        limit: 20
-        exclude:
-        - 1920
-        - 1930
-        - 1940
-        - 1950
-        - 1960
-    - pmm: network
+      # Custom collections - https://kometa.wiki/en/latest/files/collections/
+      - file: config/tvshows.yml
+      # Recently released media - https://kometa.wiki/en/latest/defaults/chart/basic/
+      - default: basic
+      # Plex popular/most watched - https://kometa.wiki/en/latest/defaults/chart/tautulli/
+      - default: tautulli
+        template_variables:
+          list_days: 7
+          summary_popular: "A collection of shows Popular on Plex for the last week."
+          summary_watched: "A collection of Top shows Watched on Plex for the last week."
+      # IMDb Top 250 - https://kometa.wiki/en/latest/defaults/chart/imdb/
+      - default: imdb
+        schedule: monthly(1)
+        template_variables:
+          use_all: false
+          use_top: true
+      # Top 20 Popular, trending, and watched movies/shows - https://kometa.wiki/en/latest/defaults/chart/trakt/
+      - default: trakt
+        template_variables:
+          limit: 20
+          use_all: false
+          use_popular: true
+          use_trending: true
+          use_watched: true
+      # Emmy winners for the last 5 years - https://kometa.wiki/en/latest/defaults/award/emmy/
+      - default: emmy
+        template_variables:
+          data:
+            starting: current_year-5
+            ending: current_year-1
+      # "Best of" by decade - https://kometa.wiki/en/latest/defaults/show/decade/
+      - default: decade
+        template_variables:
+          limit: 20
+          exclude:
+            - 1920
+            - 1930
+            - 1940
+            - 1950
+            - 1960
+      - default: network
     overlay_files:
-    # Airing, Returning, Ended, Canceled and works with builder_level show
-    - pmm: status
-      template_variables:
-        horizontal_align: center
-        vertical_align: top
-        vertical_offset: 0
-        horizontal_offset: 0
-        back_height: 85
-        back_width: 1100
-        font: config/fonts/Avenir_95_Black.ttf
-        font_size: 60
-        back_color_airing: '#016920'
-        back_color_returning: '#81007F'
-        back_color_canceled: '#B52222'
-        back_color_ended: '#000847'
-    # Add a small "4K UHD" image in the top left corner
-    - pmm: resolution
-      template_variables:
-        use_1080p_dv: false
-        use_1080p_hdr: false
-        use_1080p: false
-        use_720p: false
-        use_576p: false
-        use_480p: false
-    - pmm: resolution
-      template_variables:
-        builder_level: season
-        use_1080p_dv: false
-        use_1080p_hdr: false
-        use_1080p: false
-        use_720p: false
-        use_576p: false
-        use_480p: false
-    - pmm: resolution
-      template_variables:
-        builder_level: episode
-        use_1080p_dv: false
-        use_1080p_hdr: false
-        use_1080p: false
-        use_720p: false
-        use_576p: false
-        use_480p: false
-    - pmm: ribbon
-      template_variables:
-        use_all: false
-        use_oscars: true
-        use_emmys: true
-        use_imdb: true
+      # Add a banner to the top of the show poster that states whether the show is airing, returning, cancelled, or ended - https://kometa.wiki/en/latest/defaults/overlays/status/
+      - default: status
+        template_variables:
+          horizontal_align: center
+          vertical_align: top
+          vertical_offset: 0
+          horizontal_offset: 0
+          back_height: 85
+          back_width: 1100
+          font: config/fonts/Avenir_95_Black.ttf
+          font_size: 60
+          back_color_airing: '#016920'
+          back_color_returning: '#81007F'
+          back_color_canceled: '#B52222'
+          back_color_ended: '#000847'
+      # Add a 4K* to the top left of the show poster - https://kometa.wiki/en/latest/defaults/overlays/resolution/
+      - default: resolution
+        template_variables:
+          use_all: false
+          use_edition: true
+          use_4k: true
+          use_4k_hdr: true
+          use_4k_dv: true
+          use_4k_plus: true
+          use_4k_dvhdr: true
+          use_4k_dvhdrplus: true
+      # Add a 4K* to the top left of the season poster - https://kometa.wiki/en/latest/defaults/overlays/resolution/
+      - default: resolution
+        template_variables:
+          builder_level: season
+          use_all: false
+          use_edition: true
+          use_4k: true
+          use_4k_hdr: true
+          use_4k_dv: true
+          use_4k_plus: true
+          use_4k_dvhdr: true
+          use_4k_dvhdrplus: true
+      # Add a 4K* to the top left of the episode poster - https://kometa.wiki/en/latest/defaults/overlays/resolution/
+      - default: resolution
+        template_variables:
+          builder_level: episode
+          use_all: false
+          use_edition: true
+          use_4k: true
+          use_4k_hdr: true
+          use_4k_dv: true
+          use_4k_plus: true
+          use_4k_dvhdr: true
+          use_4k_dvhdrplus: true
+      # Add a ribbon to the lower right if in IMDB 250, or is an Oscars or Emmy winner - https://kometa.wiki/en/latest/defaults/overlays/ribbon/
+      - default: ribbon
+        template_variables:
+          use_all: false
+          use_oscars: true
+          use_emmys: true
+          use_imdb: true
     sonarr:
-      url: http://sonarr4k:8989
+      url: 'http://sonarr4k:8989'
       token: <redacted>
-      root_folder_path: /mnt/media/4ktvshows
+      root_folder_path: /mnt/unionfs/media/4ktvshows
       monitor: all
       quality_profile: Ultra-HD
       language_profile: English
       series_type: standard
       season_folder: true
-      tag: pmm
+      tag: kometa
       search: false
       cutoff_search: false
       add_existing: false
       add_missing: false
       upgrade_existing: false
-      sonarr_path:
-      plex_path:
+      sonarr_path: null
+      plex_path: null
       ignore_cache: false
   TV Shows:
     report_path: /config/reports/tvshows.yml
     settings:
       asset_directory:
-      - config/assets/tvshows
-      - config/assets/tvshow_collections
+        - config/assets/tvshows
+        - config/assets/tvshow_collections
     operations:
       assets_for_all: true
-      # mass_critic_rating_update: tmdb
       delete_collections:
         managed: false
         configured: false
         less: 3
-    template_variables: # Disable the separator for collections
+    template_variables:
+      # Disable the separator for collections - https://kometa.wiki/en/latest/defaults/separators/
       use_separator: false
-    # metadata_files:
     collection_files:
-    - file: config/tvshows.yml
-    - pmm: basic # Recently released media
-    - pmm: tautulli   # Plex popular/most watched
-    - pmm: flixpatrol   # Top across networks, according to flixpatrol
-      template_variables:
-        sonarr_add_missing: false
-        location: united_states
-    - pmm: imdb   #IMDb Top 250
-      template_variables:
-        sonarr_add_missing: false
-        use_popular: false
-        use_lowest: false
-    # Top 20 Popular, trending, and watched movies/shows
-    - pmm: trakt
-      template_variables:
-        use_collected: false
-        use_recommended: false
-        limit: 20
-    # Emmy winners for the last 5 years
-    - pmm: emmy
-      template_variables:
-        radarr_add_missing: false
-        data:
-          starting: current_year-5
-          ending: current_year-1
-    - pmm: network
+      # Custom collections - https://kometa.wiki/en/latest/files/collections/
+      - file: config/tvshows.yml
+      # Recently released media - https://kometa.wiki/en/latest/defaults/chart/basic/
+      - default: basic
+      # Plex popular/most watched - https://kometa.wiki/en/latest/defaults/chart/tautulli/
+      - default: tautulli
+        template_variables:
+          list_days: 7
+          summary_popular: "A collection of shows Popular on Plex for the last week."
+          summary_watched: "A collection of Top shows Watched on Plex for the last week."
+      # IMDb Top 250 - https://kometa.wiki/en/latest/defaults/chart/imdb/
+      - default: imdb
+        schedule: monthly(1)
+        template_variables:
+          use_all: false
+          use_top: true
+      # Top 20 Popular, trending, and watched movies/shows - https://kometa.wiki/en/latest/defaults/chart/trakt/
+      - default: trakt
+        template_variables:
+          limit: 20
+          use_all: false
+          use_popular: true
+          use_trending: true
+          use_watched: true
+      # Emmy winners for the last 5 years - https://kometa.wiki/en/latest/defaults/award/emmy/
+      - default: emmy
+        template_variables:
+          data:
+            starting: current_year-5
+            ending: current_year-1
+      # "Best of" by decade - https://kometa.wiki/en/latest/defaults/show/decade/
+      - default: decade
+        template_variables:
+          limit: 20
+          exclude:
+            - 1920
+            - 1930
+            - 1940
+            - 1950
+            - 1960
+      - default: network
     overlay_files:
-    - pmm: ribbon
-      template_variables:
-        use_all: false
-        use_oscars: true
-        use_emmys: true
-        use_imdb: true
-    # Airing, Returning, Ended, Canceled and works with builder_level show
-    - pmm: status
-      template_variables:
-        horizontal_align: center
-        vertical_align: top
-        vertical_offset: 0
-        horizontal_offset: 0
-        back_height: 85
-        back_width: 1100
-        font: config/fonts/Avenir_95_Black.ttf
-        font_size: 60
-        back_color_airing: '#016920'
-        back_color_returning: '#81007F'
-        back_color_canceled: '#B52222'
-        back_color_ended: '#000847'
+      # Add a ribbon to the lower right if in IMDB 250, or is an Oscars or Emmy winner - https://kometa.wiki/en/latest/defaults/overlays/ribbon/
+      - default: ribbon
+        template_variables:
+          use_all: false
+          use_oscars: true
+          use_emmys: true
+          use_imdb: true
+      # Add a banner to the top of the show poster that states whether the show is airing, returning, cancelled, or ended - https://kometa.wiki/en/latest/defaults/overlays/status/
+      - default: status
+        template_variables:
+          horizontal_align: center
+          vertical_align: top
+          vertical_offset: 0
+          horizontal_offset: 0
+          back_height: 85
+          back_width: 1100
+          font: config/fonts/Avenir_95_Black.ttf
+          font_size: 60
+          back_color_airing: '#016920'
+          back_color_returning: '#81007F'
+          back_color_canceled: '#B52222'
+          back_color_ended: '#000847'
   Kid's TV:
     report_path: /config/reports/kidstv.yml
     settings:
       asset_directory:
-      - config/assets/tvshows
-      - config/assets/tvshow_collections
+        - config/assets/tvshows
+        - config/assets/tvshow_collections
     operations:
       assets_for_all: true
       mass_content_rating_update: mdb_commonsense
-    template_variables: # Disable the separator for collections
+    template_variables:
+      # Disable the separator for collections - https://kometa.wiki/en/latest/defaults/separators/
       use_separator: false
-    # metadata_files:
     collection_files:
-    - file: config/kidstv.yml
-    - pmm: tautulli   # Plex popular/most watched
-      template_variables:
-        list_minimum: 3
-        list_minimum_watched: 3
-        list_minimum_popular: 3
-    - pmm: content_rating_cs
-      template_variables:
-        use_other: false
-        include:
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-    - pmm: network
+      # Custom collections - https://kometa.wiki/en/latest/files/collections/
+      - file: config/kidstv.yml
+      # Plex popular/most watched - https://kometa.wiki/en/latest/defaults/chart/tautulli/
+      - default: tautulli
+        template_variables:
+          list_days: 7
+          summary_popular: "A collection of shows Popular on Plex for the last week."
+          summary_watched: "A collection of Top shows Watched on Plex for the last week."
+      # Common Sense - https://kometa.wiki/en/latest/defaults/both/content_rating_cs/
+      - default: content_rating_cs
+        template_variables:
+          use_other: false
+          include:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+      - default: network
     sonarr:
-      url: http://sonarr:8989
+      url: 'http://sonarr:8989'
       token: <redacted>
       add_missing: false
       add_existing: false
-      root_folder_path: /mnt/media/kidstv
+      root_folder_path: /mnt/unionfs/media/kidstv
       monitor: all
       quality_profile: Any
       language_profile: English
       series_type: standard
       season_folder: true
-      tag: pmm
+      tag: kometa
       search: false
       cutoff_search: false
-      sonarr_path:
-      plex_path:
+      sonarr_path: null
+      plex_path: null
       upgrade_existing: false
       ignore_cache: false
 settings:
-  # General Settings
   run_order:
-  - operations
-  - metadata
-  - collections
-  - overlays
+    - operations
+    - metadata
+    - collections
+    - overlays
   cache: true
-  cache_expiration: 30 # Number of days for the cache to be used.
+  cache_expiration: 30
   run_again_delay: 2
   save_report: true
   tvdb_language: eng
   item_refresh_delay: 0
   verify_ssl: true
-  custom_repo:
-  check_nightly: false
-  # Asset Settings
+  custom_repo: null
   asset_directory: config/assets
   asset_folders: true
   asset_depth: 1
@@ -480,10 +538,9 @@ settings:
   show_missing_season_assets: false
   show_missing_episode_assets: false
   show_asset_not_needed: false
-  # Collection Settings
   sync_mode: sync
   minimum_items: 3
-  default_collection_order:
+  default_collection_order: null
   delete_below_minimum: true
   delete_not_scheduled: false
   missing_only_released: true
@@ -492,35 +549,39 @@ settings:
   show_filtered: false
   show_options: false
   show_missing: false
-  ignore_ids: 116718,138435,340995,335912
-  ignore_imdb_ids:
-  # Playlist Settings
-  playlist_sync_to_user: all
+  ignore_ids: '116718,138435,340995,335912'
+  ignore_imdb_ids: null
+  playlist_sync_to_users: all
   playlist_report: false
   show_unconfigured: true
-  playlist_exclude_users:
+  playlist_exclude_users: null
+  overlay_artwork_filetype: jpg
+  overlay_artwork_quality: 75
 webhooks:
-  error: https://discord.com/api/webhooks/<redacted>
-  version:
-  run_start:
-  run_end: https://discord.com/api/webhooks/<redacted>
-  changes:
-  delete:
+  error: >-
+    https://discord.com/api/webhooks/1121510900596224060/-YMjoX0sE8fEn4BnMik80Z49Mo55NrlKIvuXAeE5Zh_SXSlmNFvZwX1Y2H8clshYR-_9
+  version: null
+  run_start: null
+  run_end: >-
+    https://discord.com/api/webhooks/1121510900596224060/-YMjoX0sE8fEn4BnMik80Z49Mo55NrlKIvuXAeE5Zh_SXSlmNFvZwX1Y2H8clshYR-_9
+  changes: null
+  delete: null
 plex:
-  url: http://192.168.0.32:32400
+  url: 'http://plex:32400'
   token: <redacted>
   timeout: 60
   clean_bundles: false
   empty_trash: false
   optimize: false
-  db_cache:
+  db_cache: 4096
+  verify_ssl: false
 tmdb:
   apikey: <redacted>
   language: en
   cache_expiration: 60
   region: US
 tautulli:
-  url: http://tautulli:8181
+  url: 'http://tautulli:8181'
   apikey: <redacted>
 omdb:
   apikey: <redacted>
@@ -529,63 +590,48 @@ mdblist:
   apikey: <redacted>
   cache_expiration: 60
 radarr:
-  url: http://radarr:7878
+  url: 'http://radarr:7878'
   token: <redacted>
   add_existing: false
   add_missing: false
-  root_folder_path: /mnt/media/movies
+  root_folder_path: /mnt/unionfs/media/movies
   monitor: true
   availability: announced
   quality_profile: Any
-  tag: pmm
+  tag: kometa
   search: true
-  radarr_path:
-  plex_path:
+  radarr_path: null
+  plex_path: null
   upgrade_existing: false
   ignore_cache: false
+  monitor_existing: false
 sonarr:
-  url: http://sonarr:8989
+  url: 'http://sonarr:8989'
   token: <redacted>
   add_missing: false
   add_existing: false
-  root_folder_path: /mnt/media/tvshows
+  root_folder_path: /mnt/unionfs/media/tvshows
   monitor: all
   quality_profile: Any
   language_profile: English
   series_type: standard
   season_folder: true
-  tag: pmm
+  tag: kometa
   search: false
   cutoff_search: false
-  sonarr_path:
-  plex_path:
+  sonarr_path: null
+  plex_path: null
   upgrade_existing: false
   ignore_cache: false
+  monitor_existing: false
 trakt:
   client_id: <redacted>
   client_secret: <redacted>
-  pin:
+  pin: null
   authorization:
     access_token: <redacted>
-    token_type: 
+    token_type: Bearer
     expires_in: 
-    refresh_token: 
-    scope: 
+    refresh_token: <redacted>
+    scope: public
     created_at: 
-# Unused configs
-# notifiarr:
-#   apikey: 
-# anidb:
-#   username: 
-#   password: 
-#   language: en
-#   client: 
-# mal:
-#   client_id: 
-#   client_secret: 
-#   authorization:
-#   # everything below is autofilled by the script
-#     access_token:
-#     token_type:
-#     expires_in:
-#     refresh_token:
